@@ -47,6 +47,7 @@ async function getCourse(){
     console.log(course);
      
 }
+//comparison operator 
 
 // eq (equal)
 // ne (not equal)
@@ -59,7 +60,8 @@ async function getCourse(){
 
 async function getCoursewithfilter(){
     const course = await Course
-    .find({author:"kanix",isPublished:true})
+    //.find({author:"kanix",isPublished:true})
+    .find({price: {$gt : 10}})
     .limit(10)
     .sort({name:1})
     .select({name:1,tags:1})
@@ -67,3 +69,41 @@ async function getCoursewithfilter(){
      
 }
 
+
+// logical operator 
+
+//or 
+//and
+async function getCoursefilter(){
+    const course = await Course
+    //.find({author:"kanix",isPublished:true})
+    .find()
+    .or([{author:'Mosh'},{isPublished:true}])
+    .limit(10)
+    .sort({name:1})
+    .select({name:1,tags:1})
+    console.log(course);
+     
+}
+
+//regular expression to find the data in db 
+// .count is used to count the number of returing documents 
+async function getDataCourse(){
+    const course = await Course
+    // find the name that start with "kanix" 
+    .find({author: /^Kanix/ })
+    
+    //find the name that ends with "sahu"
+    // last 'i' is used if we want case in insensitive 
+    .find({author:/sahu$/i})
+
+
+    // last 'i' is used if we want case in insensitive 
+    //that contain word = "somestring"
+.find({author: /.*string.*/i})
+
+    .select({name:1,tags:1});
+    console.log(course)
+}
+
+getDataCourse()
