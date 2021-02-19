@@ -142,4 +142,11 @@ async function updateCourseDirect(id){
 }
 
 
-updateCourseDirect('602f812172380d2cbc5b15f1')
+//remove document in db 
+
+async function removeCourse(id){
+    const course =  await Course.deleteOne({_id:id});
+    console.log(course);
+}
+
+removeCourse('602f812172380d2cbc5b15f1')
