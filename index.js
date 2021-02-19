@@ -106,4 +106,40 @@ async function getDataCourse(){
     console.log(course)
 }
 
-getDataCourse()
+
+
+
+//updating document in mongodb
+//two way to do this 
+
+//first way 
+//update the doucment by retriving it 
+
+async function updateCourse(id){
+    const course = await Course.findById(id);
+    if(!course) return ;
+
+    course.isPublished =true;
+    course.author = "Author name";
+
+    const result = await course.save();
+    console.log(result);
+}
+
+ 
+
+
+//second way to update directly in database
+
+async function updateCourseDirect(id){
+    const course = await Course.findByIdAndUpdate({_id:id},{
+        $set: {
+            author: 'jack bhai',
+            isPublished: false
+        }
+    },{new:true});
+    console.log(course);
+}
+
+
+updateCourseDirect('602f812172380d2cbc5b15f1')
